@@ -42,8 +42,11 @@ return {
   {
     "neovim/nvim-lspconfig",
     opts = function(_, opts)
-      for _, name in ipairs({ "vtsls", "astro", "svelte", "vue_ls" }) do
-        opts.servers[name] = with_tsdk(opts.servers[name])
+      for _, name in ipairs({ "vtsls", "astro", "svelte" }) do
+        local server = opts.servers[name]
+        if server then
+          opts.servers[name] = with_tsdk(server)
+        end
       end
     end,
   },
