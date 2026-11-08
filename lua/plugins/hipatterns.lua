@@ -1,5 +1,6 @@
 local css_colors = {}
-for name, hex in ([[aliceblue=F0F8FF
+for name, hex in
+  ([[aliceblue=F0F8FF
 antiquewhite=FAEBD7
 aqua=00FFFF
 aquamarine=7FFFD4
@@ -146,7 +147,8 @@ wheat=F5DEB3
 white=FFFFFF
 whitesmoke=F5F5F5
 yellow=FFFF00
-yellowgreen=9ACD32]]):gmatch("(%w+)=(%x+)") do
+yellowgreen=9ACD32]]):gmatch("(%w+)=(%x+)")
+do
   css_colors[name] = hex
 end
 
@@ -154,7 +156,7 @@ return {
   {
     "nvim-mini/mini.hipatterns",
     event = { "BufReadPost", "BufNewFile" },
-    opts = function()
+    opts = function(_, opts)
       local hipatterns = require("mini.hipatterns")
       local gen = hipatterns.gen or hipatterns.gen_highlighter
       local function is_stylesheet(buf)
@@ -182,32 +184,43 @@ return {
           right_gravity = false,
         }
       end
-      return {
-        highlighters = {
-          hex_color = gen.hex_color({ filter = is_stylesheet, style = "inline", inline_text = "█" }),
-          hex_color_short = {
-            pattern = stylesheet_pattern("#%x%x%x%f[%X]"),
-            extmark_opts = inline_swatch,
-            group = function(_, match)
-              local hex = match:sub(2):gsub(".", function(c)
-                return c .. c
-              end)
-              return hipatterns.compute_hex_color_group("#" .. hex, "bg")
-            end,
-          },
-          named_color = {
-            pattern = stylesheet_pattern("[A-Za-z]+"),
-            extmark_opts = inline_swatch,
-            group = function(_, match)
-              local hex = css_colors[match:lower()]
-              if not hex then
-                return nil
-              end
-              return hipatterns.compute_hex_color_group("#" .. hex, "bg")
-            end,
-          },
-        },
+
+      local hl = opts.highlighters or {}
+
+      if hl.shorthand then
+        local pattern = hl.shorthand.pattern
+        hl.shorthand.pattern = function(buf)
+          if not is_stylesheet(buf) then
+            return pattern
+          end
+        end
+      end
+
+      hl.hex_color = gen.hex_color({ filter = is_stylesheet, style = "inline", inline_text = "█" })
+      hl.hex_color_short = {
+        pattern = stylesheet_pattern("#%x%x%x%f[%X]"),
+        extmark_opts = inline_swatch,
+        group = function(_, match)
+          local hex = match:sub(2):gsub(".", function(c)
+            return c .. c
+          end)
+          return hipatterns.compute_hex_color_group("#" .. hex, "bg")
+        end,
       }
+      hl.named_color = {
+        pattern = stylesheet_pattern("[A-Za-z]+"),
+        extmark_opts = inline_swatch,
+        group = function(_, match)
+          local hex = css_colors[match:lower()]
+          if not hex then
+            return nil
+          end
+          return hipatterns.compute_hex_color_group("#" .. hex, "bg")
+        end,
+      }
+
+      opts.highlighters = hl
+      return opts
     end,
   },
 }

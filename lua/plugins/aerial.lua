@@ -1,8 +1,9 @@
 return {
-  "stevearc/aerial.nvim",
-  event = "VeryLazy",
-  opts = {},
-  keys = {
-    { "<leader>a", "<cmd>AerialToggle<CR>", desc = "Aerial (Code Outline)" },
+  {
+    "stevearc/aerial.nvim",
+    keys = {
+      { "<leader>cs", false },
+      { "<leader>a", "<cmd>AerialToggle<CR>", desc = "Aerial (Code Outline)" },
+    },
   },
 }
