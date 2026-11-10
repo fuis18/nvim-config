@@ -73,6 +73,8 @@ Treesitter also installs: `css`, `html_tags`, `astro`, `svelte`, `vue`. Markdown
 | Key | Action |
 |---|---|
 | `<leader>e` | Toggle file explorer (snacks) |
+| `<leader>n` | Notification history (picker) |
+| `<leader>un` | Dismiss all notifications |
 | `s` / `S` | Leap forward / backward (normal mode; `S` in visual = surround) |
 | `gs` | Leap across windows |
 | `<C-n>` | Multi-cursor: select word under cursor |
