@@ -36,7 +36,6 @@ return {
             return cmp.show()
           end,
         },
-        ["<Tab>"] = { "select_and_accept", "snippet_forward", "fallback" },
         ["<S-Tab>"] = { "snippet_backward", "fallback" },
         ["<CR>"] = {
           function(cmp)

@@ -4,11 +4,12 @@ Personal Neovim configuration built on top of [LazyVim](https://www.lazyvim.org)
 
 ## Requirements
 
-- [Neovim](https://github.com/neovim/neovim) >= 0.10
+- [Neovim](https://github.com/neovim/neovim) >= 0.10 (0.12+ for native Copilot)
 - `git`
 - `ripgrep` and `fd` (for fuzzy finding / picker)
 - A [Nerd Font](https://www.nerdfonts.com/) for icons
-- `node`/`npm` (vtsls, prettier)
+- `node`/`npm` (vtsls, prettier, copilot-language-server)
+- `xxd` (hex editing)
 
 ## Language Extras
 
@@ -35,6 +36,7 @@ Treesitter also installs: `css`, `html_tags`, `astro`, `svelte`, `vue`. Markdown
 | [nvim-surround](https://github.com/kylechui/nvim-surround) | Add/change/delete surrounding pairs |
 | [blink.cmp](https://github.com/saghen/blink.cmp) | Completion engine (super-tab preset) |
 | [conform.nvim](https://github.com/stevearc/conform.nvim) | Formatting via the LazyVim prettier extra |
+| [GitHub Copilot (native)](https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/plugins/extras/ai/copilot-native.lua) | Inline ghost-text suggestions via `copilot-language-server` (LazyVim extra `ai.copilot-native`) |
 
 ### Editor
 
@@ -48,6 +50,7 @@ Treesitter also installs: `css`, `html_tags`, `astro`, `svelte`, `vue`. Markdown
 | [vim-illuminate](https://github.com/RRethy/vim-illuminate) | Highlight other uses of the word under cursor |
 | [nvim-treesitter-context](https://github.com/nvim-treesitter/nvim-treesitter-context) | Floating context of the current function |
 | [vim-visual-multi](https://github.com/mg979/vim-visual-multi) | Multi-cursor editing |
+| [hex.nvim](https://github.com/RaafatTurki/hex.nvim) | Hex view/edit of binary files via `xxd` (`:HexDump`, `:HexAssemble`, `:HexToggle`; auto-detects `nvim -b`) |
 
 ### UI & Markdown
 
@@ -81,5 +84,19 @@ Treesitter also installs: `css`, `html_tags`, `astro`, `svelte`, `vue`. Markdown
 | `<leader>ns` | Toggle test summary |
 | `<leader>no` | Open test output |
 | `<leader>?` | Buffer keymaps (which-key) |
+| `Tab` | Accept completion / Copilot ghost-text suggestion |
+| `<M-]>` / `<M-[>` | Next / previous Copilot suggestion |
+
+## GitHub Copilot
+
+Inline ghost-text suggestions powered by the official `copilot-language-server` (LazyVim extra `ai.copilot-native`). Requires Neovim >= 0.12.
+
+**One-time setup:** open Neovim and run:
+
+```vim
+:LspCopilotSignIn
+```
+
+This copies a one-time code to your clipboard and asks you to authorize it in the browser with your GitHub account (Copilot Free works). Until you sign in, suggestions stay inactive.
 
 LazyVim default keymaps still apply — check them inside Neovim with `<leader>?`.
