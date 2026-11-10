@@ -91,12 +91,12 @@ Treesitter also installs: `css`, `html_tags`, `astro`, `svelte`, `vue`. Markdown
 
 Inline ghost-text suggestions powered by the official `copilot-language-server` (LazyVim extra `ai.copilot-native`). Requires Neovim >= 0.12.
 
-**One-time setup:** open Neovim and run:
+**One-time setup:** open Neovim and run (from any buffer):
 
 ```vim
 :LspCopilotSignIn
 ```
 
-This copies a one-time code to your clipboard and asks you to authorize it in the browser with your GitHub account (Copilot Free works). Until you sign in, suggestions stay inactive.
+This copies a one-time code to your clipboard and asks you to authorize it in the browser with your GitHub account (Copilot Free works). If you are already signed in — e.g. via the `gh` CLI — it just reports `Already signed in`. Use `:LspCopilotSignOut` to log out. Until you sign in, suggestions stay inactive.
 
 LazyVim default keymaps still apply — check them inside Neovim with `<leader>?`.
