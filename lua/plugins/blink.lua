@@ -6,7 +6,7 @@ return {
         list = {
           selection = {
             auto_insert = false,
-            preselect = true,
+            preselect = false,
           },
         },
       },
@@ -35,6 +35,19 @@ return {
             end
             return cmp.show()
           end,
+        },
+        -- Cadena propia: al definir <Tab>, LazyVim ya no inyecta ai_accept,
+        -- así que se añade a mano. Prioridad: snippet → sugerencia de Copilot
+        -- → ítem SELECCIONADO del menú (accept() no acepta sin selección,
+        -- a diferencia de select_and_accept) → Tab normal.
+        ["<Tab>"] = {
+          function()
+            return LazyVim.cmp.map({ "snippet_forward", "ai_accept" })()
+          end,
+          function(cmp)
+            return cmp.accept()
+          end,
+          "fallback",
         },
         ["<S-Tab>"] = { "snippet_backward", "fallback" },
         ["<CR>"] = {

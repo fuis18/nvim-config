@@ -86,7 +86,7 @@ Treesitter also installs: `css`, `html_tags`, `astro`, `svelte`, `vue`. Markdown
 | `<leader>ns` | Toggle test summary |
 | `<leader>no` | Open test output |
 | `<leader>?` | Buffer keymaps (which-key) |
-| `Tab` | Accept completion / Copilot ghost-text suggestion |
+| `Tab` | Snippet jump → accept Copilot suggestion → accept selected menu item → Tab (indent) |
 | `<M-]>` / `<M-[>` | Next / previous Copilot suggestion |
 
 ## GitHub Copilot
